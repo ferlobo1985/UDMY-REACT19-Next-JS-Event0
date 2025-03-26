@@ -1,17 +1,24 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Roboto, Anton} from "next/font/google";
 import "./globals.css";
 import {HeroUIProvider} from "@heroui/react";
 import NavComponent from "@/components/nav/header";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const roboto = Roboto({
+  weight:['400','700'],
+  style:['normal','italic'],
+  subsets:['latin'],
+  display:'swap',
+  variable:'--font-roboto'
+})
+
+const anton = Anton({
+  weight:['400'],
+  subsets:['latin'],
+  display:'swap',
+  variable:'--font-anton'
+})
+
 
 export const metadata = {
   title: "Create Next App",
@@ -21,7 +28,7 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${roboto.variable} ${anton.variable}`}>
         <HeroUIProvider>
           <NavComponent/>
           <>

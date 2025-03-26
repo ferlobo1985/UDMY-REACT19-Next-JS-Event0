@@ -11,7 +11,7 @@ export default function NavComponent(){
             className="bg-gray-900 border-b-4 border-slate-400"
        >
 
-            <NavbarBrand as={Link} href="/" className="text-inherit text-2xl text-white">
+            <NavbarBrand as={Link} href="/" className="text-inherit text-2xl text-white antonfont">
                 Event0
             </NavbarBrand>
 

@@ -35,7 +35,13 @@ const handler = NextAuth({
 
             }
         })
-    ]
+    ],
+    theme:{
+        colorScheme:'light',
+        brandColor:"", /// HEX COLOR CODE
+        logo:"", // ABLSOLUTE URL TO IMAGE
+        buttonText:""// HEX COLOR CODE
+    }
 });
 
 

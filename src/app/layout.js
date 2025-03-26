@@ -2,6 +2,7 @@ import { Roboto, Anton} from "next/font/google";
 import "./globals.css";
 import {HeroUIProvider} from "@heroui/react";
 import NavComponent from "@/components/nav/header";
+import AuthProvider from "@/providers/authProvider";
 
 
 const roboto = Roboto({
@@ -29,12 +30,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${roboto.variable} ${anton.variable}`}>
-        <HeroUIProvider>
-          <NavComponent/>
-          <>
-            {children}
-          </>
-        </HeroUIProvider>
+        <AuthProvider>
+          <HeroUIProvider>
+            <NavComponent/>
+            <>
+              {children}
+            </>
+          </HeroUIProvider>
+        </AuthProvider>
       </body>
     </html>
   );

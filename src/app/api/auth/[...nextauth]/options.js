@@ -1,6 +1,10 @@
 import GitHubProvider from 'next-auth/providers/github';
 import CredentialsProvider from 'next-auth/providers/credentials';
 
+import DBconnect from '@/lib/db';
+import User from '@/lib/models/user';
+import { passwordCheck } from '@/components/utils';
+
 export const options = {
     providers:[
         GitHubProvider({
@@ -21,21 +25,21 @@ export const options = {
                 }
             },
             async authorize(credentials){
-                // go to DB to sign or register
-                const user = {
-                    id:98635,
-                    email:'francis@gmail.com',
-                    password:'testing123'
-                }
-
-                if( credentials?.email === user.email && credentials?.password === user.password){
-                    /// EVERYTHING OK, MOVE FORWARD
-                    return user
-                } else {
-                    /// RETURN NULL TO CANCEL
+                // 1-  CONNECT
+                await DBconnect();
+                // 2- user exists, email correct ?
+                const user = await User.findOne({email:credentials.email});
+                if(!user){
                     return null
                 }
 
+                // 3- validate pass/
+                const validPass = await passwordCheck(credentials.password,user.password);
+                if(!validPass){
+                    return null
+                }
+               
+                return user;
             }
         })
     ],

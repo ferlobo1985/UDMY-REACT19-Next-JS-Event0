@@ -5,6 +5,10 @@ export const errorHelper = (formik,value) => ({
     errorMessage: formik.errors[value] && formik.touched[value] ? formik.errors[value]:null
 })
 
+export const passwordCheck = async(password, hashedPassword) => {
+    const valid = await bcrypt.compare(password, hashedPassword);
+    return valid;
+}
 
 export const passwordHash = async(password) => {
     const salt = await bcrypt.genSalt(10);

@@ -37,6 +37,9 @@ export default function RegisterPage(){
             if(!res.ok) { alert(user.error)}
             console.log(user)
         } else {
+            /// SIGN IN 
+            
+
 
         }
 

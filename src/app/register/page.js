@@ -4,11 +4,13 @@ import { useFormik } from 'formik';
 import { useState } from 'react';
 import * as Yup from 'yup';
 
+import { errorHelper } from '@/components/utils';
+
 export default function RegisterPage(){
     const [formType, setFormType] = useState(false);
 
     const formik = useFormik({
-        isInitialValid:{email:'',password:''},
+        initialValues:{email:'',password:''},
         validationSchema: Yup.object({
             email: Yup.string()
             .required('Sorry the email is required')
@@ -31,7 +33,30 @@ export default function RegisterPage(){
             <h1 className='text-5xl py-10'>
                 { formType ? 'Register':'Sign in'}
             </h1>
-            {/* INPUTS */}
+           
+            <div className='mb-5'>
+                <Input
+                    type='email'
+                    label='Email'
+                    variant='bordered'
+                    fullWidth={true}
+                    {...formik.getFieldProps('email')}
+                    {...errorHelper(formik,'email')}
+                />
+            </div>
+
+            <div className='mb-5'>
+                <Input
+                    type='password'
+                    label='Password'
+                    variant='bordered'
+                    fullWidth={true}
+                    {...formik.getFieldProps('password')}
+                    {...errorHelper(formik,'password')}
+                />
+            </div>
+
+
             <div className='mb-3'>
                 <Button color='secondary' type='submit'>
                     { formType ? 'Register':'Sign in'}

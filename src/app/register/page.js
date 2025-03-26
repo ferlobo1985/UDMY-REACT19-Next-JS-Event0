@@ -5,6 +5,7 @@ import { useState } from 'react';
 import * as Yup from 'yup';
 
 import { errorHelper } from '@/components/utils';
+import { signIn } from 'next-auth/react';
 
 export default function RegisterPage(){
     const [formType, setFormType] = useState(false);
@@ -35,14 +36,22 @@ export default function RegisterPage(){
             });
             const user = await res.json();
             if(!res.ok) { alert(user.error)}
-            console.log(user)
+            else {
+                signUser(values);
+            }
         } else {
             /// SIGN IN 
-            
-
-
+            signUser(values);
         }
+    }
 
+    const signUser = async(values) => {
+        await signIn('credentials',{
+            redirect:true,
+            email: values.email,
+            password: values.password,
+            callbackUrl:'/dashboard'
+        });
     }
 
 

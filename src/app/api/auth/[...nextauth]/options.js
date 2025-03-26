@@ -5,6 +5,7 @@ import DBconnect from '@/lib/db';
 import User from '@/lib/models/user';
 import { passwordCheck } from '@/components/utils';
 
+
 export const options = {
     providers:[
         GitHubProvider({
@@ -43,6 +44,9 @@ export const options = {
             }
         })
     ],
+    pages:{
+        signIn:'/register'
+    },
     theme:{
         colorScheme:'light',
         brandColor:"", /// HEX COLOR CODE

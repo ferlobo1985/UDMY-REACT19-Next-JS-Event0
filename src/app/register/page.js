@@ -1,11 +1,12 @@
 'use client'
-import { Input, Button } from '@heroui/react';
+import { Button, Input } from '@heroui/react';
 import { useFormik } from 'formik';
 import { useState } from 'react';
 import * as Yup from 'yup';
 
 import { errorHelper } from '@/components/utils';
 import { signIn } from 'next-auth/react';
+import { redirect } from 'next/navigation';
 
 export default function RegisterPage(){
     const [formType, setFormType] = useState(false);
@@ -47,10 +48,14 @@ export default function RegisterPage(){
 
     const signUser = async(values) => {
         await signIn('credentials',{
-            redirect:true,
             email: values.email,
             password: values.password,
-            callbackUrl:'/dashboard'
+            redirect:false
+        }).then(data=>{
+            if(data.ok){
+                redirect('/dashboard')
+            }
+            console.log('Oops, try again later',data.error)
         });
     }
 

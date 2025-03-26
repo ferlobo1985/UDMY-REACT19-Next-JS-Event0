@@ -25,6 +25,13 @@ export default function NavComponent(){
                     </DropdownTrigger>
 
                     <DropdownMenu aria-label="Menu action" variant="flat">
+                        <DropdownItem key="dashboard" as={Link} href="/dashboard">
+                            Dashboard
+                        </DropdownItem>
+                        <DropdownItem key="posts" as={Link} href="/posts">
+                            Posts
+                        </DropdownItem>
+
                         <DropdownItem key="register" as={Link} href="register">
                             Register
                         </DropdownItem>

@@ -1,3 +1,9 @@
-export default function PostsPage(){
-    return <>POSTS</>
+
+export default async function PostsPage(){
+
+    return (
+        <>
+            POSTS
+        </>
+    )
 }

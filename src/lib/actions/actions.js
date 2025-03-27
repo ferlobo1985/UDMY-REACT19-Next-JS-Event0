@@ -9,7 +9,9 @@ export async function addVenue(prevState,formData) {
     try{
         /// VALIDATION
         const isValid = await AddVenueSchema(formData);
-        //// check if is valid
+        if(!isValid.success){
+            return { success: false, message: isValid.errors }
+        }
 
         const newVenue = new Venue({
             name:formData.get('name'),
@@ -17,9 +19,9 @@ export async function addVenue(prevState,formData) {
             state:formData.get('state')
         });
         await newVenue.save();
-        return { success: true,message:"Event added"}
+        return { success: true, message:"Event added"}
     } catch(error){
-        return { success: false,message:[]}
+        return { success: false,message:[error.message]}
     }
 
 }

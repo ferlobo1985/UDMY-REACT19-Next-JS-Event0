@@ -1,3 +1,5 @@
+import AddVenueComponent from "@/components/forms/add_venue_form"
+
 export default async function AddVenuePage(){
-    return <h1>Add VENUE PAGE</h1>
+    return <AddVenueComponent/>
 }

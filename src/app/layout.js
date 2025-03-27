@@ -3,6 +3,7 @@ import "./globals.css";
 import {HeroUIProvider} from "@heroui/react";
 import NavComponent from "@/components/nav/header";
 import AuthProvider from "@/providers/authProvider";
+import { ToastContainer } from 'react-toastify';
 
 
 const roboto = Roboto({
@@ -36,6 +37,7 @@ export default function RootLayout({ children }) {
             <>
               {children}
             </>
+            <ToastContainer/>
           </HeroUIProvider>
         </AuthProvider>
       </body>

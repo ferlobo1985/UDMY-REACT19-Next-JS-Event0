@@ -10,6 +10,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useFormik } from "formik";
 import * as Yup from 'yup';
 import { redirect } from "next/navigation";
+import { toast } from 'react-toastify';
 
 
 export default function AddEventComponent({venuesList,postEvent}){
@@ -43,7 +44,9 @@ export default function AddEventComponent({venuesList,postEvent}){
             if(!success){
                 setError(message)
             } else {
-                /// TOASTS
+                toast.success("Event added corectly",{
+                    position:"bottom-right"
+                })
                 redirect('/dashboard')
             }
         })

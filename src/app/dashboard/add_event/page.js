@@ -5,10 +5,13 @@ import Venue from "@/lib/models/venue"
 import Event from "@/lib/models/events"
 
 export default async function AddEventPage(){
-
+    await DBconnect();
+    const venues = await Venue.find({});
     
 
     return(
-        <AddEventComponent/>
+        <AddEventComponent
+            venuesList={JSON.parse(JSON.stringify(venues))}
+        />
     )
 }

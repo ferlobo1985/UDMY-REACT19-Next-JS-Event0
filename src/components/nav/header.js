@@ -1,5 +1,5 @@
 'use client'
-import { Navbar, NavbarBrand, NavbarContent,Dropdown,DropdownItem,DropdownTrigger,DropdownMenu,Button } from "@heroui/react"
+import { Navbar, NavbarBrand, NavbarContent,Dropdown,DropdownItem,DropdownTrigger,DropdownMenu,Button,DropdownSection } from "@heroui/react"
 import Link from 'next/link'
 import { useSession, signOut } from "next-auth/react"
 
@@ -33,25 +33,36 @@ export default function NavComponent(){
                     </DropdownTrigger>
 
                     <DropdownMenu aria-label="Menu action" variant="flat">
-                        {!session ?
-                            <DropdownItem key="register" as={Link} href="register">
-                                Register
-                            </DropdownItem>
-                        :
-                            <>
+                        <DropdownSection>
+                            { !session ?
+                                <DropdownItem key="register" as={Link} href="register">
+                                    Register/Login
+                                </DropdownItem>
+                            :
                                 <DropdownItem key="logout" onPress={logoutUser}>
                                     Logout
                                 </DropdownItem>
+                            }
+                        </DropdownSection>
+
+
+
+
+                        {session ?
+                            <DropdownSection title="Admin actions">
                                 <DropdownItem key="dashboard" as={Link} href="/dashboard">
                                     Dashboard
                                 </DropdownItem>
-                            </>
+                                <DropdownItem key="addevent" as={Link} href="/dashboard/add_event">
+                                    Add Event
+                                </DropdownItem>
+                                <DropdownItem key="addvenue" as={Link} href="/dashboard/add_venue">
+                                    Add Venue
+                                </DropdownItem>
+                            </DropdownSection>
+                        :
+                            null
                         }
-                        
-                        <DropdownItem key="posts" as={Link} href="/posts">
-                            Posts
-                        </DropdownItem>
-
                     </DropdownMenu>
 
                 </Dropdown>

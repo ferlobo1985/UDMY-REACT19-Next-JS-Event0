@@ -46,8 +46,21 @@ export default function AddVenueComponent(){
                 Add Venue
             </Button>
             { isPending && <div>...loading</div> }
-            {/* ERRORS */}
-
+            <div className='my-5'>
+                { !state?.success ?
+                    <div className='text-danger'>
+                        <ul>
+                            { state?.message.map((error,index)=>(
+                                <li key={index}>- {error}</li>
+                            ))}
+                        </ul>
+                    </div>
+                    :
+                    <div className='text-success'>
+                        {state?.message}
+                    </div>
+                }
+            </div>
        </form>
     )
 }

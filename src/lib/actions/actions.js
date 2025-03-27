@@ -19,7 +19,7 @@ export async function addVenue(prevState,formData) {
             state:formData.get('state')
         });
         await newVenue.save();
-        return { success: true, message:"Event added"}
+        return { success: true, message:"Venue added"}
     } catch(error){
         return { success: false,message:[error.message]}
     }

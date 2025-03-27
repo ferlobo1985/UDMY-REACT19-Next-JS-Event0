@@ -12,7 +12,7 @@ export default async function AddVenueSchema(formData){
     /// SCHEMA
     const schema = yup.object({
         name:yup.string().required('Name in required').min(2).max(100),
-        address: yup.string().required('Address in required').min(20).max(150),
+        address: yup.string().required('Address in required').min(5).max(150),
         state: yup.string().required('State in required')
     })
 

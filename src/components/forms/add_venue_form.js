@@ -2,12 +2,14 @@
 
 import { Input, Button, Divider, Select, SelectItem } from '@heroui/react'
 import { states } from '@/components/states';
+import { addVenue } from '@/lib/actions/actions'; 
 import { useActionState } from 'react';
 
 export default function AddVenueComponent(){
+    const [state,action,isPending] = useActionState(addVenue,null)
 
     return(
-       <form className='max-w-2xl mx-auto'>
+       <form className='max-w-2xl mx-auto' action={action}>
             <h1 className='text-5xl py-5'>Add venue</h1>
             <Divider className='mb-5'/>
 
@@ -43,6 +45,8 @@ export default function AddVenueComponent(){
             <Button color='secondary' variant='solid' type='submit'>
                 Add Venue
             </Button>
+            { isPending && <div>...loading</div> }
+            {/* ERRORS */}
 
        </form>
     )

@@ -12,7 +12,9 @@ import * as Yup from 'yup';
 import { redirect } from "next/navigation";
 
 
-export default function AddEventComponent({venuesList}){
+export default function AddEventComponent({venuesList,postEvent}){
+    const [isPending, startTransition] = useTransition();
+    const [error,setError] = useState(null);
     const [startDate,setStartDate] = useState(null)
 
     const formik = useFormik({
@@ -31,9 +33,21 @@ export default function AddEventComponent({venuesList}){
             slug:Yup.string().required(),
         }),
         onSubmit: async(values)=>{
-            console.log(values)
+            handleSubmitForm(values)
         }
     })
+
+    const handleSubmitForm = async(values) =>{
+        startTransition(async()=>{
+            const { success, message } = await postEvent(values);
+            if(!success){
+                setError(message)
+            } else {
+                /// TOASTS
+                redirect('/dashboard')
+            }
+        })
+    }
 
     return(
       <form className="max-w-2xl mx-auto" onSubmit={formik.handleSubmit}>
@@ -102,10 +116,17 @@ export default function AddEventComponent({venuesList}){
             {...errorHelper(formik,'slug')}  
         />
 
+        { !isPending ?
         <Button color='secondary' variant='solid' type='submit'>
             Add Event
         </Button>
+        :null}
 
+        { error ?   
+            <div className="my-5 text-red-600">
+                {error}
+            </div>
+        :null}
       </form>
     )
 }

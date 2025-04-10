@@ -2,6 +2,7 @@
 
 import DBconnect from "@/lib/db";
 import Venue from '@/lib/models/venue'
+import Event from '@/lib/models/events'
 import AddVenueSchema from "@/components/forms/add_venue_schema";
 
 export async function addVenue(prevState,formData) {
@@ -24,4 +25,19 @@ export async function addVenue(prevState,formData) {
         return { success: false,message:[error.message]}
     }
 
+}
+
+
+export async function findEvents(skip,limit) {
+    try{
+        await DBconnect()
+        const request = await Event.find({})
+        .populate({path:'venue',model:Venue})
+        .sort([['_id','desc']])
+        .skip(skip)
+        .limit(limit);
+        return request
+    }catch(error){
+        throw new Error(error)
+    }
 }

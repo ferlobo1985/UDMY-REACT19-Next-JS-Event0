@@ -1,6 +1,6 @@
 import { findEventById } from "@/lib/actions/actions";
 import Image from "next/image";
-
+import VenueCardComponent from "@/components/events/venue_card";
 
 export default async function EventsPage({params}) {
     const eventID =  (await params).slug;
@@ -11,7 +11,7 @@ export default async function EventsPage({params}) {
 
             <div className="relative w-auto h-[500px]">
                 <Image
-                    src={`https://picsum.photos/800/800?${event.eventID}`}
+                    src={`https://picsum.photos/800/800?${eventID}`}
                     fill
                     alt="band"
                     style={{objectFit:"cover"}}
@@ -26,6 +26,11 @@ export default async function EventsPage({params}) {
                 </div>
                 <p>{event.description}</p>
             </div>
+
+            <VenueCardComponent
+                venueData={JSON.parse(JSON.stringify(event.venue))}
+                eventDate={event.date}
+            />
 
         </div>
     )

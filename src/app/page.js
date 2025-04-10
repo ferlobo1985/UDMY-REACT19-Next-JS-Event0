@@ -1,9 +1,10 @@
 import Image from "next/image";
 import { findEvents } from '@/lib/actions/actions'
+import EventsMasonryComponent from "@/components/events_masonry";
 
 export default async function Home() {
   const eventShows = await findEvents(0,6)
-  console.log(eventShows)
+ 
 
   return (
    <>
@@ -14,7 +15,9 @@ export default async function Home() {
       </div>
     </div>
 
-    {/* POSTS */}
+    <EventsMasonryComponent
+      eventShows={JSON.parse(JSON.stringify(eventShows))}
+    />
 
    </>
   );

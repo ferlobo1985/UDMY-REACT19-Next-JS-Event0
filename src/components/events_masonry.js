@@ -20,11 +20,26 @@ const breakpointColumnsObj = {
 
 
 export default function EventsMasonryComponent({eventShows,loadMore}){
-    const [events,setEvents] = useState(eventShows)
+    const [ events,setEvents ] = useState(eventShows);
+    const [ loadButton, setLoadButton ] = useState(true);
 
     const randHeight = (number) => {
         if(number % 2 === 0) { return 200 }
         return 300;
+    }
+
+    const moreHandler = async() => {
+        setLoadButton(false);
+        const newEvents =  await loadMore(events.length,3);
+
+        if(newEvents.length === 0){
+            setLoadButton(false)
+        } else {
+            setLoadButton(true);
+            setEvents(prevState=>{
+                return [...prevState,...newEvents]
+            })
+        }
     }
 
 
@@ -63,11 +78,16 @@ export default function EventsMasonryComponent({eventShows,loadMore}){
                             Go to event
                         </Button>
                     </CardFooter>
-                    
                 </Card>
-
             ))}
         </Masonry>
+        <Divider className='mb-5'/>
+
+        { loadButton ?
+            <Button color='primary' variant='ghost' size="lg" onPress={moreHandler}>
+                Load More
+            </Button>
+        :null}
 
        </div>
     )
